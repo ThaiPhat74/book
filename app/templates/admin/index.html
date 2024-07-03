@@ -1,0 +1,57 @@
+{% extends 'admin/master.html' %}
+
+{% block body %}
+
+{% if current_user.is_authenticated %}
+<h1 class="text-center text-success">TRANG CHỦ QUẢN TRỊ NHÀ SÁCH</h1>
+<h3 class="ml-5">Chào <span class="text-danger">{{ current_user.name }}</span>!</h3>
+<div class="row">
+  <div class="col-md-5 col-sm-12 mt-5">
+    <table class="table">
+      <tr>
+        <th>Mã</th>
+        <th>Thể loại sách</th>
+        <th>Số lượng</th>
+      </tr>
+      {% for s in stats %}
+      <tr>
+        <td>{{ s[0] }}</td>
+        <td>{{ s[1] }}</td>
+        <td>{{ s[2] }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+  <div class="col-md-7 col-sm-12">
+    <canvas id="cateStats"></canvas>
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="{{ url_for('static', filename='js/charts.js') }}"></script>
+<script>
+  let data = [], labels = [];
+  {% for s in stats %}
+    data.push({{ s[2] }})
+    labels.push('{{ s[1] }}')
+  {% endfor %}
+  window.onload = function() {
+    drawCateStats(labels, data)
+  }
+</script>
+
+{% else %}
+<h1 class="text_center text-danger">ĐĂNG NHẬP QUẢN TRỊ</h1>
+<form method="post" action="/login-admin">
+  <div class="mb-3 mt-3">
+    <label for="email" class="form-label">Tài khoản:</label>
+    <input type="text" class="form-control" id="email" placeholder="Tên đăng nhập" name="username">
+  </div>
+  <div class="mb-3">
+    <label for="pwd" class="form-label">Mật khẩu:</label>
+    <input type="password" class="form-control" id="pwd" placeholder="Mật khẩu" name="password">
+  </div>
+  <button type="submit" class="btn btn-primary">Đăng nhập</button>
+</form>
+{% endif %}
+
+{% endblock %}

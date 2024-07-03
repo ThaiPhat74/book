@@ -1,0 +1,54 @@
+{% extends 'layout/base.html' %}
+
+{% block content %}
+ <div class="col-md-8 container">
+              <div class="card mb-3">
+                <div class="card-body">
+                  <h3 class="card-title text-center mb-5 fw-light fs-5">Thông tin</h3>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Tên</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                        {{ current_user.name }}
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Username</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                      {{ current_user.username }}
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Số điện thoại</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                      {{ current_user.phone }}
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Địa chỉ</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                          {{ current_user.address }}
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <a class="btn btn-info px-3" href="/edit">Đổi thông tin</a>
+                      <a class="btn btn-info px-3 mx-5" href="/change-password">Đổi mật khẩu</a>
+                      <a class="btn btn-info px-3" href="/order-history">Xem lịch sử đặt hàng</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+ </div>
+{% endblock %}

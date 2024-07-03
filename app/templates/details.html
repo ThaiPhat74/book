@@ -1,0 +1,132 @@
+{% extends 'layout/base.html' %}
+
+{% block content %}
+{% if book %}
+<h1 class="text-center text-success">CHI TIẾT SÁCH</h1>
+<div class="row justify-content-center px-3">
+    <div class="col-md-6">
+        <div class="main-img">
+            <img class="img-fluid" src="{{ book.image }}"
+                 alt="{{ book.name }}">
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="px-2">
+            <h3 class="text-bold my-3">
+                {{ book.name }}
+            </h3>
+            <div class="text-bold my-1">
+                Thể loại: <a href="/?category_id={{ book.category.id }}" class="link-primary">{{ book.category.name
+                }}</a>
+            </div>
+            <div style="display:none" id="book{{book.id}}" >{{book.quantity}}</div>
+            <div class="d-flex text-bold my-1">
+                {% if tacgia %}
+                Tác giả:
+                <ul>
+                    {% for i in tacgia %}
+                    <a href="#" class="link-dark">
+                        <li> {{ i }}</li>
+                    </a>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </div>
+            <div class="d-flex text-bold my-1">
+                {% if minhhoa %}
+                Minh họa:
+                <ul>
+                    {% for i in minhhoa %}
+                    <li> {{ i }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </div>
+            <div class="text-bold my-1">
+                <p class="text-color mb-2">Tình trạng:
+                    {% if book.quantity > 0 %}
+                    <b class="text-success"> Còn hàng</b>
+                    {% else %}
+                    <b class="text-danger"> Hết hàng</b>
+                    {% endif %}
+                </p>
+
+            </div>
+
+            <div class="my-4">
+                <h2 class="mb-1"> {{ "{:,.0f}".format(book.price) }} VNĐ</h2>
+            </div>
+
+            <div class="my-4 text-break">
+                <!--                text-break ngat dong-->
+                Mô tả: {{ book.description}}
+            </div>
+
+            <div class="d-flex py-5">
+                <div class="block me-2">
+                                        <input value="1" type="number" id="numberToCart" class="form-control" min="1" max="10"/>
+                    <button type="button" class="btn btn-info" id="AddToCart"
+                            {% if book.quantity <= 0 %}
+                            disabled
+                            {% endif %}
+                            href="javascript:;" onclick="addToCart({{ book.id }}, '{{ book.name }}', {{ book.price }})">
+                        <i class="fa-solid fa-cart-plus"></i> Đặt hàng
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container my-5">
+    <hr>
+    <h1 class="d-flex justify-content-center">Sách tương tự</h1>
+    <div class="row">
+        {% for i in books %}
+        <div class="col-md-3">
+            <div class="card-body">
+                <a href="/books/{{i.id}}"><img class="card-img-top" src="{{ i.image }}" alt=" i.name ">
+                </a>
+                <p class="title">{{ i.name }}</p>
+            </div>
+            <div>
+                <p>{{ "{:,.1f}".format(i.price) }} VND</p></div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<hr>
+{% if current_user.is_authenticated %}
+<div>
+    <div class="form-group">
+        <textarea id="comment-content" class="form-control" placeholder="Nội dung bình luận"></textarea>
+    </div>
+    <div class="m-2">
+        <input type="button" onclick="addComment({{ book.id }})" value="Thêm bình luận" class="btn btn-info"/>
+    </div>
+</div>
+{% else %}
+<p>Vui lòng <a href="/login?next=/books/{{ book.id }}">đăng nhập</a> để bình luận!</p>
+{% endif %}
+
+
+<div class="spinner-grow text-primary spinning"></div>
+<ul class="list-group mt-2" id="comments"></ul>
+
+{% block js %}
+<script src="{{ url_for('static', filename='js/details.js') }}"></script>
+<script>
+    window.onload = function() {
+        loadComments({{ book.id }})
+    }
+
+</script>
+{% endblock %}
+{% endif %}
+{% endblock %}
+
+
+
+
+
+
+

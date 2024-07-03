@@ -1,0 +1,53 @@
+{% extends 'layout/base.html' %}
+
+{% block content %}
+{% if err_msg %}
+<div class="alert alert-danger">
+    {{ err_msg }}
+</div>
+{% endif %}
+<div class="col-lg-8 container">
+    <div class="card">
+        <form class="card-body" method="post" enctype="multipart/form-data" action="/edit">
+            <h3 class="card-title text-center mb-5 fw-light fs-5">Đổi thông tin</h3>
+            <div class="row mb-3">
+                <div class="col-sm-3">
+                    <h6 class="mb-0">Tên</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                    <input type="text" class="form-control" id="name" placeholder="Tên"
+                               name="name"
+                               required autofocus>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-sm-3">
+                    <h6 class="mb-0">Địa chỉ</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                    <input type="text" class="form-control" id="address" placeholder="Địa chỉ"
+                               name="address"
+                               required autofocus>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-sm-3">
+                    <h6 class="mb-0">Số điện thoại</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                    <input type="text" class="form-control" id="phone" placeholder="Số điện thoại"
+                               name="phone"
+                               required autofocus>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-9 text-secondary">
+                          <button class="btn btn-lg btn-primary btn-login fw-bold text-uppercase" type="submit">Lưu
+                        </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

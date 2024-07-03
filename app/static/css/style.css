@@ -1,0 +1,85 @@
+body {
+    background-color: #f8f6f0;
+}
+
+.header{
+    font-size: 20px;
+}
+.navbar {
+    padding: 0.5% 13%;
+}
+
+.navbar-nav > .nav-item{
+  padding-left:10px;
+  padding-right:10px;
+}
+
+a.nav-link{
+    color: black;
+}
+
+a {
+    text-decoration: none;
+}
+
+.card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, .12), 0 4px 8px rgba(0, 0, 0, .06);
+}
+
+.btn-warning {
+    border: none;
+    text-decoration: none;
+    outline: 0;
+    border-radius: 100px;
+}
+
+.pagination-page-info {
+    padding: .6em;
+    padding-left: 0;
+    width: 40em;
+    margin: .5em;
+    margin-left: 0;
+    font-size: 12px;
+}
+.pagination-page-info b {
+    color: black;
+    background: #6aa6ed;
+    padding-left: 2px;
+    padding: .1em .25em;
+    font-size: 150%;
+}
+
+#requirement-password-rule {
+  display:none;
+  background: #f1f1f1;
+  color: #000;
+  position: relative;
+  padding: 15px;
+  margin-top: 5px;
+}
+
+#requirement-password-rule p {
+  padding: 5px 35px;
+  font-size: 15px;
+}
+
+.valid {
+  color: green;
+}
+
+.valid:before {
+  position: relative;
+  left: -35px;
+  content: "✔";
+}
+
+.invalid {
+  color: red;
+}
+
+.invalid:before {
+  position: relative;
+  left: -35px;
+  content: "✖";
+}

@@ -1,0 +1,56 @@
+<div class="header border-bottom">
+    <nav class="navbar navbar-expand-sm navbar-white bg-light text-nowrap">
+        <div class="container-fluid">
+            <a class="navbar-brand mx-5" href="/"><img
+                    src="{{ url_for('static', filename='images/logo1.png') }}" alt="" width="170px"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <ul class="nav navbar-nav justify-content-end ">
+                  {% if current_user.is_authenticated %}
+                <li class="nav-item"><a class="nav-link" href="/account"><i class="fa-solid fa-user"></i> Xin chào, {{ current_user.name }}!
+                </a></li>
+                <li class="nav-item"><a class="nav-link" href="/logout"><i class="fa-solid fa-right-to-bracket"></i> Đăng xuất</a></li>
+                 {% else %}
+                <li class="nav-item"><a class="nav-link" href="/login"><i class="fa-solid fa-user"></i> Đăng nhập</a>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="/register"><i class="fa-solid fa-user"></i> Đăng ký</a>
+                </li>
+                {% endif %}
+                <li class="nav-item"><a class="nav-link" href="/cart"><i class="fa-solid fa-cart-shopping"></i> Giỏ hàng
+                    Cart<sup class="px-2 bg-info cart-counter border-1 rounded-3" id="cart-quantity">{{ cart.total_quantity }}</sup></a></li>
+
+            </ul>
+        </div>
+    </nav>
+    <nav class="navbar navbar-expand-sm navbar-white bg-light text-nowrap">
+        <div class="container-fluid">
+            <div class="collapse navbar-collapse" id="mynavbar">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Trang chủ</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button"
+                           data-bs-toggle="dropdown">Danh Mục</a>
+                        <ul class="dropdown-menu">
+                            {% for cate in categories %}
+                            <li><a class="dropdown-item" href="/?category_id={{ cate.id }}">{{ cate.name }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Hỗ trợ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Về chúng tôi</a></li>
+                </ul>
+                <form class="d-flex justify-content-end rounded" action="/">
+                    <input class="form-control me-2 rounded border-dark" name="keyword" type="text" placeholder="Nhập từ khóa...">
+                    <button class="btn border-dark" type="submit"><i class="fa-solid fa-magnifying-glass ms-1"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </nav>
+</div>

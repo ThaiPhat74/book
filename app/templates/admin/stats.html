@@ -1,0 +1,102 @@
+{% extends 'admin/master.html' %}
+
+{% block body %}
+<h1 class="text-center text-success">THỐNG KÊ - BÁO CÁO</h1>
+<div class="row">
+  <div class="col-md-7 col-sm-12">
+    <table class="table mt-4">
+      <tr>
+        <th colspan="4" class="text-center">BÁO CÁO DOANH THU THEO THÁNG</th>
+      </tr>
+      <tr>
+        <th>STT</th>
+        <th>Thể loại sách</th>
+        <th>Doanh thu</th>
+        <th>Số lượt thuê</th>
+      </tr>
+      {% for s in stats1 %}
+      <tr>
+        <td>{{ s[0] }}</td>
+        <td>{{ s[1] }}</td>
+        <td>{{ "{:,.0f}".format(s[2]) }} VNĐ</td>
+        <td>{{ s[3] }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+    <form>
+      <div class="form-group">
+        <input type="text" placeholder="Nhập thể loại cần tìm" name="kw1" class="form-control" />
+      </div>
+      <div class="form-group">
+        <label>Từ ngày</label>
+        <input type="date" name="from_date1" class="form-control" />
+      </div>
+      <div class="form-group">
+        <label>Đến ngày</label>
+        <input type="date" name="to_date1" class="form-control" />
+      </div>
+      <div>
+        <input type="submit" value="Lọc" class="btn btn-info" />
+      </div>
+    </form>
+    <table class="table mt-4">
+      <tr>
+        <th colspan="4" class="text-center">BÁO CÁO TẦN SUẤT SÁCH BÁN</th>
+      </tr>
+      <tr>
+        <th>STT</th>
+        <th>Tên sách</th>
+        <th>Thể loại</th>
+        <th>Số lượng</th>
+      </tr>
+      {% for s in stats2 %}
+      <tr>
+        <td>{{ s[0] }}</td>
+        <td>{{ s[1] }}</td>
+        <td>{{ s[2] }}</td>
+        <td>{{ s[3] }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+    <form>
+      <div class="form-group">
+        <input type="text" placeholder="Nhập tên sách cần tìm" name="kw2" class="form-control" />
+      </div>
+      <div class="form-group">
+        <label>Từ ngày</label>
+        <input type="date" name="from_date2" class="form-control" />
+      </div>
+      <div class="form-group">
+        <label>Đến ngày</label>
+        <input type="date" name="to_date2" class="form-control" />
+      </div>
+      <div class="mb-4">
+        <input type="submit" value="Lọc" class="btn btn-info" />
+      </div>
+    </form>
+  </div>
+  <div class="col-md-5 col-sm-12 mt-4">
+    <canvas id="revenueStats"></canvas>
+    <div class="mt-5"><br></div>
+    <canvas id="frequencyStats"></canvas>
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="{{ url_for('static', filename='js/charts.js') }}"></script>
+<script>
+let data1 = [], labels1 = [], data2 = [], labels2 = [];
+  {% for s in stats1 %}
+    data1.push({{ s[2] }})
+    labels1.push('{{ s[1] }}')
+  {% endfor %}
+  {% for s in stats2 %}
+    data2.push({{ s[3] }})
+    labels2.push('{{ s[1] }}')
+  {% endfor %}
+  window.onload = function() {
+    drawRevenueStats(labels1, data1)
+    drawFrequencyStats(labels2, data2)
+  }
+</script>
+
+{% endblock %}

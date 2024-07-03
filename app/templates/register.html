@@ -1,0 +1,76 @@
+{% extends 'layout/base.html' %}
+
+{% block content %}
+{% if err_msg %}
+<div class="alert alert-danger">
+    {{ err_msg }}
+</div>
+{% endif %}
+
+<div class="row">
+    <div class="col-lg-7 col-xl-6 mx-auto">
+        <div class="card flex-row my-5 border-0 shadow rounded-3 overflow-hidden">
+            <div class="card-img-left d-none d-md-flex">
+            </div>
+            <div class="card-body p-4 p-sm-5">
+                <h3 class="card-title text-center mb-5 fw-light fs-5">Register</h3>
+
+                {% if err_msg %}
+                <div class="alert alert-danger">
+                    {{ err_msg }}
+                </div>
+                {% endif %}
+                <form method="post" enctype="multipart/form-data" action="/register">
+
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="username" placeholder="Tên đăng nhập"
+                               name="username"
+                               required autofocus>
+                        <label for="username">Username</label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" required id="name" placeholder="Nhập họ tên"
+                               name="name">
+                        <label for="name">Họ tên</label>
+                    </div>
+
+                    <hr>
+
+                    <div class="form-floating mb-3">
+                        <input type="password" class="form-control" required id="password" placeholder="Nhập mật khẩu"
+                               name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
+                        <label for="password">Mật khẩu</label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input type="password" class="form-control" required id="confirm"
+                               placeholder="Nhập xác nhận mật khẩu" name="confirm">
+                        <label for="confirm">Xác nhận mật khẩu</label>
+                    </div>
+                    <div id="requirement-password-rule">
+                        <h4>Mật khẩu cần chứa các ký tự sau:</h4>
+                        <p id="letter" class="invalid">Ít nhất 1 chữ <b>thường</b></p>
+                        <p id="capital" class="invalid">Ít nhất 1 chữ <b>hoa</b></p>
+                        <p id="number" class="invalid">Ít nhất 1 <b>số</b></p>
+                        <p id="length" class="invalid">Tối thiểu <b>8 ký tự</b></p>
+                        <p id="match" class="invalid">Mật khẩu nhập lại không khớp</p>
+                    </div>
+                    <div class="d-grid mb-2">
+                        <button class="btn btn-lg btn-primary btn-login fw-bold text-uppercase"
+                                type="submit">Register
+                        </button>
+                    </div>
+
+                    <a class="d-block text-center mt-2 small" href="/login">Have an account? Sign In</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% block js %}
+<script src="{{ url_for('static', filename='js/register.js') }}"></script>
+
+{% endblock %}
+{% endblock %}

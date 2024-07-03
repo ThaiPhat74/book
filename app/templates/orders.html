@@ -1,0 +1,22 @@
+ {% extends 'layout/base.html' %}
+
+{% block content %}
+<table class="table">
+        <tr>
+            <th>Mã</th>
+            <th>Tên sách</th>
+            <th>Loại sách</th>
+            <th>Đơn giá</th>
+            <th>Số lượng</th>
+        </tr>
+        {% for i in p.OrderDetails %}
+        <tr>
+            <td>{{ i.id }}</td>
+            <td>{{ i.Book.name }}</td>
+            <td>{{ i.Book.category.name }}</td>
+            <td>{{ i.price }} VNĐ</td>
+            <td>{{ i.quantity }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
